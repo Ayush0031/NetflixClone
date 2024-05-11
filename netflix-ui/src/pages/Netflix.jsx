@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import Navbar from '../components/Navbar.jsx'
 import BackgroundImage from '../assets/home.jpg'
 import MovieLogo from '../assets/homeTitle.webp'
-
+import {useSelector} from "react-redux";
 import { onAuthStateChanged } from "firebase/auth";
 import { firebaseAuth } from "../utils/firebase-config";
 import { useNavigate } from "react-router-dom";
@@ -11,23 +11,29 @@ import { useNavigate } from "react-router-dom";
 import { FaPlay } from "react-icons/fa";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 import {useDispatch} from "react-redux";
-import { getGenres } from '../store/index.js'
+import { fetchMovies, getGenres } from '../store/index.js'
+import Slider from '../components/Slider.jsx'
 
 const Netflix = () => {
   const[isScrolled,setIsScrolled]=useState(false);
+  
   const navigate=useNavigate();
-
+  const genresLoaded=useSelector((state)=>state.netflix.genresLoaded)
+  const movies=useSelector((state)=>state.netflix.movies)
   const disptach=useDispatch();
 
   useEffect(()=>{
     disptach(getGenres())
   },[])
+  useEffect(()=>{
+    if(genresLoaded) disptach(fetchMovies({type:"all"}))
+})
 
   window.onscroll=()=>{
     setIsScrolled(window.pageYOffset===0?false:true)
     return ()=>{window.onscroll = null}
   }
-
+// console.log(movies)
 
 
 
@@ -51,7 +57,7 @@ const Netflix = () => {
           </div>
 
       </div>
-    
+    <Slider movies={movies}/>
     </Container>
   )
 }
