@@ -4,6 +4,7 @@ import Login from './pages/Login.jsx'
 import Signup from './pages/Signup.jsx'
 import Netflix from './pages/Netflix.jsx'
 import Player from './pages/Player.jsx'
+import Movies from './pages/Movies.jsx'
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route exact path='/signup' element={<Signup/>}/>
         <Route exact path='/' element={<Netflix/>}/>
         <Route exact path='/player' element={<Player/>}/>
+        <Route exact path='/movies' element={<Movies/>}/>
       </Routes>
       </BrowserRouter>
     </>
