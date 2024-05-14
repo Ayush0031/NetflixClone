@@ -8,12 +8,14 @@ import { firebaseAuth } from "../utils/firebase-config.js";
 import styled from 'styled-components'
 import Slider from '../components/Slider.jsx';
 import NotAvailable from "../components/NotAvailable.jsx"
+import SelectGenre from '../components/SelectGenre.jsx';
 export default function Movies() {
     const[isScrolled,setIsScrolled]=useState(false);
  
   const navigate=useNavigate();
   const genresLoaded=useSelector((state)=>state.netflix.genresLoaded)
   const movies=useSelector((state)=>state.netflix.movies)
+  const genres=useSelector((state)=>state.netflix.genres)
   const disptach=useDispatch();
 
   useEffect(()=>{
@@ -34,8 +36,10 @@ export default function Movies() {
     <Container>
         <div className="navbar">
             <Navbar isScrolled={isScrolled}/>
-        </div>
+       
         <div className="data">
+        </div>
+        <SelectGenre genres={genres}/>
             {movies.length ? <Slider movies={movies}/> :<NotAvailable/>}
         </div>
       
