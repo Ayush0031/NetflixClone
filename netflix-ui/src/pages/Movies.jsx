@@ -39,7 +39,7 @@ export default function Movies() {
        
         <div className="data">
         </div>
-        <SelectGenre genres={genres}/>
+        <SelectGenre genres={genres} type="movie"/>
             {movies.length ? <Slider movies={movies}/> :<NotAvailable/>}
         </div>
       
