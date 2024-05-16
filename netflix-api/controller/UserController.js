@@ -52,3 +52,26 @@ module.exports.addToLikedMovies=async(req,res)=>{
         return res.status(404).json({"msg":"Error in adding Movie"})
     }
 }
+
+module.exports.removeFromLikedMovies=async(req,res)=>{
+    try {
+        const{email,movieId}=req.body;
+        const user=await User.findOne({email});
+        if(user){
+            const {likedMovies}=user;
+            const movieAlreadyLiked=likedMovies.find(({id})=>(id===data.id))
+            if(!movieAlreadyLiked){
+                await User.findByIdAndUpdate(
+                    user._id,
+                    {
+                        likedMovies:[...user.likedMovies,data]
+                    },{
+                        new:true
+                    }
+                )
+            }
+        }
+    } catch (error) {
+        return res.status(404).json({"msg":"Error in Deleting Movies"})
+    }
+}
