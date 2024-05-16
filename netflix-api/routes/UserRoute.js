@@ -3,6 +3,6 @@ const express=require("express");
 const router=express.Router()
 
 router.post("/add",addToLikedMovies)
-router.post("/get",getLikedMovies)
+router.get("/liked/:email",getLikedMovies)
 
 module.exports=router;

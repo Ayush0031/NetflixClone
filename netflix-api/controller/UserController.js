@@ -1,12 +1,13 @@
 const User=require("../models/UserModel.js");
 
 module.exports.getLikedMovies=async(req,res)=>{
-    const {email}=req.body;
-    const user =await User.findOne({email})
+    
     try{
+        const {email}=req.params;
+        const user =await User.findOne({email})
         if(user){
             if(user.likedMovies.length>0){
-              return  res.status(200).json(user.likedMovies)
+              return  res.status(200).json({ msg: "success", movies: user.likedMovies })
             }
             else{
               return  res.status(200).json({"msg":"There are no Liked Movies"})
