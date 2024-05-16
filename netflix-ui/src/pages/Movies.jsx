@@ -22,7 +22,7 @@ export default function Movies() {
     disptach(getGenres())
   },[])
   useEffect(()=>{
-    if(genresLoaded) disptach(fetchMovies({type:"movies"}))
+    if(genresLoaded) disptach(fetchMovies({type:"movie"}))
 })
 
   window.onscroll=()=>{

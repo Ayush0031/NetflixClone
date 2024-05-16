@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { fetchMovies, getGenres, getUsersLikedMovie } from '../store/index.js'
+import { getUsersLikedMovie } from '../store/index.js'
 import Navbar from '../components/Navbar.jsx';
 import { onAuthStateChanged } from "firebase/auth";
 import { firebaseAuth } from "../utils/firebase-config.js";
 import styled from 'styled-components'
-import Slider from '../components/Slider.jsx';
-import NotAvailable from "../components/NotAvailable.jsx"
-import SelectGenre from '../components/SelectGenre.jsx';
 import Card from '../components/Card.jsx';
 export default function UserLiked() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -16,21 +13,21 @@ export default function UserLiked() {
   const navigate = useNavigate();
   const movies = useSelector((state) => state.netflix.movies)
   const disptach = useDispatch();
-
+  onAuthStateChanged(firebaseAuth, (currentUser) => {
+    if (currentUser) setEmail(currentUser.email)
+    else navigate("/login")
+  })
   useEffect(() => {
     if (email) {
       disptach(getUsersLikedMovie(email))
     }
   }, [email])
-
+ 
   window.onscroll = () => {
     setIsScrolled(window.pageYOffset === 0 ? false : true)
     return () => { window.onscroll = null }
   }
-  onAuthStateChanged(firebaseAuth, (currentUser) => {
-    if (currentUser) setEmail(currentUser.email)
-    else navigate("/login")
-  })
+ 
   return (
     <Container>
       <Navbar isScrolled={isScrolled} />
