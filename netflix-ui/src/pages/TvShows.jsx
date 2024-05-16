@@ -16,13 +16,13 @@ export default function TvShows() {
   const genresLoaded=useSelector((state)=>state.netflix.genresLoaded)
   const movies=useSelector((state)=>state.netflix.movies)
   const genres=useSelector((state)=>state.netflix.genres)
-  const disptach=useDispatch();
+  const dispatch=useDispatch();
 
   useEffect(()=>{
-    disptach(getGenres())
+    dispatch(getGenres())
   },[])
   useEffect(()=>{
-    if(genresLoaded) disptach(fetchMovies({genres,type:"tv"}))
+    if(genresLoaded) dispatch(fetchMovies({genres,type:"tv"}))
 },[genresLoaded])
 
   window.onscroll=()=>{

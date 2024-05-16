@@ -7,19 +7,20 @@ import { onAuthStateChanged } from "firebase/auth";
 import { firebaseAuth } from "../utils/firebase-config.js";
 import styled from 'styled-components'
 import Card from '../components/Card.jsx';
+
 export default function UserLiked() {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [email, setEmail] = useState(undefined)
+  const movies = useSelector((state) => state.netflix.movies);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const movies = useSelector((state) => state.netflix.movies)
-  const disptach = useDispatch();
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [email, setEmail] = useState(undefined);
   onAuthStateChanged(firebaseAuth, (currentUser) => {
     if (currentUser) setEmail(currentUser.email)
     else navigate("/login")
   })
   useEffect(() => {
     if (email) {
-      disptach(getUsersLikedMovie(email))
+      dispatch(getUsersLikedMovie(email))
     }
   }, [email])
  
