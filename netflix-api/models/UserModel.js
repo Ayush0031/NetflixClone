@@ -7,7 +7,7 @@ const userSchema=new mongoose.Schema({
         unique:true,
         max:50
     },
-    likedMovie:Array
+    likedMovies:Array
 
 })
 
