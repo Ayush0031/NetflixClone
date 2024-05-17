@@ -59,7 +59,8 @@ export const getUsersLikedMovie=createAsyncThunk("netflix/liked",
           return movies
     }
 );
-export const removeFromLikedMovie=createAsyncThunk("netflix/deleteLiked",
+export const removeFromLikedMovie=createAsyncThunk(
+    "netflix/deleteLiked",
     async({email,movieId})=>{
         const {
             data: { movies },
@@ -100,3 +101,4 @@ export const store=configureStore({
         netflix:NetflixSlice.reducer,
     },
 })
+export const { setGenres, setMovies } = NetflixSlice.actions;

@@ -7,6 +7,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { firebaseAuth } from "../utils/firebase-config.js";
 import styled from 'styled-components'
 import Card from '../components/Card.jsx';
+import NotAvailable from '../components/NotAvailable.jsx';
 
 export default function UserLiked() {
   const movies = useSelector((state) => state.netflix.movies);
@@ -36,9 +37,12 @@ export default function UserLiked() {
         <h1>My List</h1>
             <div className="grid flex">
               {
+               movies ?
                 movies.map((movie,index)=>{
-                    return (<Card key={movie._id} index={index} movieData={movie} isLiked={true}/>)
+                    return (   <Card key={movie._id} index={index} movieData={movie} isLiked={true}/>)
+                    
                 })
+                :<h1>No movies Liked By you</h1>
               }
             </div>
       </div>

@@ -19,8 +19,9 @@ export default function TvShows() {
   const dispatch=useDispatch();
 
   useEffect(()=>{
-    dispatch(getGenres())
+    if (!genres.length) dispatch(getGenres());
   },[])
+
   useEffect(()=>{
     if(genresLoaded) dispatch(fetchMovies({genres,type:"tv"}))
 },[genresLoaded])
@@ -29,9 +30,13 @@ export default function TvShows() {
     setIsScrolled(window.pageYOffset===0?false:true)
     return ()=>{window.onscroll = null}
   }
+  const [user, setUser] = useState(undefined);
+
   onAuthStateChanged(firebaseAuth, (currentUser) => {
-    // if (currentUser) navigate("/")
-  })
+    if (currentUser) setUser(currentUser.uid);
+    else navigate("/login");
+  });
+
   return (
     <Container>
         <div className="navbar">

@@ -22,15 +22,19 @@ export default function Movies() {
     dispatch(getGenres())
   },[])
   useEffect(()=>{
-    if(genresLoaded) dispatch(fetchMovies({type:"movie"}))
+    if(genresLoaded){ 
+      dispatch(fetchMovies({genres,type:"movie"}))
+    }
 },[genresLoaded])
 
   window.onscroll=()=>{
     setIsScrolled(window.pageYOffset===0?false:true)
     return ()=>{window.onscroll = null}
   }
+  const [user, setUser] = useState(undefined);
   onAuthStateChanged(firebaseAuth, (currentUser) => {
-    // if (currentUser) navigate("/")
+    if (currentUser) setUser(currentUser.uid)
+    else  navigate("/login")
   })
   return (
     <Container>

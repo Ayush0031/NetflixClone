@@ -58,14 +58,14 @@ module.exports.removeFromLikedMovies=async(req,res)=>{
         const{email,movieId}=req.body;
         const user=await User.findOne({email});
         if(user){
-            const {likedMovies}=user;
-            const movieIndex=likedMovies.findIndex(({id})=>(id===movieId))
-            if(!movieIndex) res.status(400).send({"msg":"Movie not found"});
-            likedMovies.splice(movieIndex,1)
+            const movies=user.likedMovies;
+            const movieIndex=movies.findIndex(({id})=>(id===movieId))
+            if(!movieIndex) res.status(400).send({msg:"Movie not found"});
+            movies.splice(movieIndex,1)
             await User.findByIdAndUpdate(
                     user._id,
                     {
-                        likedMovies:likedMovies
+                        likedMovies:movies
                     },{
                         new:true
                     }
@@ -74,6 +74,6 @@ module.exports.removeFromLikedMovies=async(req,res)=>{
         }
         else return res.json({ msg: "User with given email not found." });
     } catch (error) {
-        return res.status(404).json({"msg":"Error in Deleting Movies"})
+        return res.json({msg:"Error in Deleting Movies"})
     }
 }

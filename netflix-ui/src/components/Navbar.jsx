@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import logo from "../assets/logo.png"
 import { Link, useNavigate } from 'react-router-dom'
@@ -11,9 +11,7 @@ function Navbar({ isScrolled }) {
     const [inputHover, setInputHover] = useState(false)
     const navigate=useNavigate();
 
-    onAuthStateChanged(firebaseAuth,(currentUser)=>{
-        if(!currentUser) navigate("/login")
-      }) 
+   
 
       const links = [
         { name: "Home", link: "/" },
